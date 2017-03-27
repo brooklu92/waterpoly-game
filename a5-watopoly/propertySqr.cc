@@ -14,7 +14,7 @@ Player* propertySqr::getOwner(){return owner;}
 
 void propertySqr::changeOwner(Player* p){
     if (owner != p)owner = p;
-    if(!owner)p->addOwning(this);
+    if(p)p->addOwning(this);
 }
 
 

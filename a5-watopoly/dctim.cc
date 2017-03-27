@@ -33,6 +33,7 @@ void DcTim::leaveDC(Player *p,int point){
 	p->turnInDC = turnInDc;
     p->getMap()->changePlayer(p->particle,origX,origY,p->coordX,p->coordY);
     cout<<"Left DC Tims Line!"<<endl;
+    p->position->notify(p);
 }
 
 void DcTim::notify(Player* p, int roll1,int roll2){

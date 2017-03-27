@@ -244,7 +244,7 @@ int Player::ifToBreak(){
 
 
 void Player::pay(int n){//owe the bank
-    cout<<n<<endl;
+    
     if(n > cash){
         if(total()<n){
             cout<<"You have no way to pay for your debt :)"<<endl;
@@ -346,9 +346,9 @@ void Player::pay(int n){//owe the bank
 
 void Player::pay(int n, Player *p){//owe to player
     cout<<"You now owe "<<p->name<<" "<<n<<endl;
-    cout<<"Your current cash: "<<cash<<endl;
+    
     asset();
-    cout<<"Your total assets converts to "<<total()<<endl;
+    
     if(total()<n){
         cout<<"But you have no way to pay for your debt :)"<<endl;
         bankruptcy(p);
@@ -434,6 +434,7 @@ void Player::pay(int n, Player *p){//owe to player
                     cash -= n;
                     p->getPaid(n);
                     cout<<"Payment completed"<<endl;
+                    cout<<"Your current cash: "<<cash<<endl;
                     return;
                 }
             }
@@ -446,6 +447,7 @@ void Player::pay(int n, Player *p){//owe to player
         cash -= n;
         p->getPaid(n);
         cout<<"Payment completed"<<endl;
+        cout<<"Your current cash: "<<cash<<endl;
     }
 }
 

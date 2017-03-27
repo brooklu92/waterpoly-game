@@ -657,19 +657,22 @@ void Map::saveHelper(string saveFileName){
     writeFile.open(saveFileName);
     writeFile << numOfPlayer << endl; //number of players
     for (int i = 0; i < (int)playerInGame.size(); ++i) {    //save all players
-        writeFile << playerInGame.at(i)->name;
-        writeFile << " ";
-        writeFile <<playerInGame.at(i)->particle;
-        writeFile<<" "<<playerInGame.at(i)->getCup()<<" "<<playerInGame.at(i)->getCash()<<" "<<playerInGame.at(i)->locationIndex<<" ";
-        if(playerInGame.at(i)->locationIndex == 10){
-            if (playerInGame.at(i)->turnInDC < 3 && playerInGame.at(i)->turnInDC >= 0) {
-                writeFile << "1 " << playerInGame.at(i)->turnInDC << endl;
+        if(!playerInGame.at(i)->isBroken()){
+            writeFile << playerInGame.at(i)->name;
+            writeFile << " ";
+            writeFile <<playerInGame.at(i)->particle;
+            writeFile<<" "<<playerInGame.at(i)->getCup()<<" "<<playerInGame.at(i)->getCash()<<" "<<playerInGame.at(i)->locationIndex<<" ";
+            if(playerInGame.at(i)->locationIndex == 10){
+                if (playerInGame.at(i)->turnInDC < 3 && playerInGame.at(i)->turnInDC >= 0) {
+                    writeFile << "1 " << playerInGame.at(i)->turnInDC << endl;
+                }else{
+                    writeFile << "0" << endl;
+                }
             }else{
-                writeFile << "0" << endl;
+                writeFile << endl;
             }
-        }else{
-            writeFile << endl;
         }
+        
     }
     for (int i = 0; i < numOfBuilding; ++i) {       //save all buildings
         if(propertySqr* tmp = dynamic_cast<propertySqr*>(unit[i])){

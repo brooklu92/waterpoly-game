@@ -44,6 +44,31 @@ const string asset = "assets";
 const string all = "all";
 const string save = "save";
 
+int readRoll(int low, int high){
+    char c;
+    cin>>noskipws>>c;
+    if(c=='\n')return -1;
+    int i;
+    cin>>skipws>>i;
+    while(cin.fail()){
+        cin.clear();
+        cin.ignore();
+        cout<<"Please enter valid input(i.e. integer)."<<endl;
+        cin >>skipws>>i;
+    }
+    while (i<low||i>high) {
+        cout<<"Out of range."<<endl;
+        cin  >>skipws>> i;
+        while(cin.fail()){
+            cin.clear();
+            cin.ignore();
+            cout<<"Please enter valid input(i.e. integer)."<<endl;
+            cin >>skipws>>i;
+        }
+    }
+    return i;
+}
+
 
 void gameStart(Map *m, bool test){
     cout<<*m;
@@ -51,6 +76,9 @@ void gameStart(Map *m, bool test){
     string s;
     stringstream ss;
     while(1){
+        if(m->currentPlayer->isBroken()){
+            m->nextPlayer();
+        }
         cout<<m->currentPlayer->name<<"'s turn"<<endl;
         cout<<"Please enter command: "<<endl;
         //start input
@@ -62,9 +90,13 @@ void gameStart(Map *m, bool test){
                 cout<<"cannot roll anymore"<<endl;
             }else{
                 if(test){
-                    int i1 = readInt(0,numOfBuilding-1);
-                    int i2 = readInt(0,numOfBuilding-1);
-                    m->rollDice(i1, i2);
+                    int i1 = readRoll(0,numOfBuilding-1);
+                    int i2 = readRoll(0,numOfBuilding-1);
+                    if(i1>=0&&i2>=0){
+                        m->rollDice(i1, i2);}
+                    else{
+                        m->rollDice();
+                    }
                     rolled = true;
                 }else{
                     m->rollDice();
